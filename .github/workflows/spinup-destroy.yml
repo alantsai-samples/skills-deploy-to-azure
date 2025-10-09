@@ -40,7 +40,13 @@ jobs:
       - name: Create webapp resource
         if: success()
         run: |
-          az webapp create --resource-group ${{ env.AZURE_RESOURCE_GROUP }} --plan ${{ env.AZURE_APP_PLAN }} --name ${{ env.AZURE_WEBAPP_NAME }}  --deployment-container-image-name nginx --subscription ${{secrets.AZURE_SUBSCRIPTION_ID}}
+          az webapp create \
+            --resource-group ${{ env.AZURE_RESOURCE_GROUP }} \
+            --plan ${{ env.AZURE_APP_PLAN }} \
+            --name ${{ env.AZURE_WEBAPP_NAME }} \
+            --deployment-container-image-name nginx \
+            --deployment-container-image-type DOCKER \
+            --subscription ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
       - name: Configure webapp to use GHCR
         if: success()
